@@ -27,6 +27,46 @@ class RapidTestOrder {
                 return aReturn;
             },
 
+
+            OPTIONS_SELECTION: (sInput) => {
+                let aReturn = [];
+                if (this.order.item.toLowerCase() === "pizza") {
+                    if (!["meat lover", "meat lovers", "vegetarian"].includes(sInput.toLowerCase())) {
+                        aReturn.push("Please choose either Meat Lovers or Vegetarian.");
+                    } else {
+                        this.order.options = sInput;
+                        aReturn.push("Good choice! Would you like to add a drink to your order?");
+                         this.stateCur = this.OrderState.FINALIZE_ORDER;
+                    }
+                } else if (this.order.item.toLowerCase() === "wings") {
+                    if (!["buffalo", "bbq"].includes(sInput.toLowerCase())) {
+                        aReturn.push("Please choose either Buffalo or BBQ sauce.");
+                    } else {
+                        this.order.options = sInput;
+                        aReturn.push("Good choice! Would you like to add a drink to your order?");
+                         this.stateCur = this.OrderState.FINALIZE_ORDER;
+                    }
+                }
+                return aReturn;
+            },
+         
+            FINALIZE_ORDER: (sInput) => {
+                let aReturn = [];
+                if (sInput.toLowerCase().startsWith('y')) {
+                    aReturn.push("Soda Can added to order"); // Placeholder for drink selection
+                }
+                else {
+                    aReturn.push("Thank you for your order!");
+                    this.stateCur = this.OrderState.FINALIZE_ORDER;
+                }
+                // Process the order and return a confirmation message
+                aReturn.push("Your order has been confirmed! Enjoy your meal.");
+                this.stateCur = this.OrderState.WELCOMING;
+                return aReturn;
+            },
+
+
+
             RESERVING: (sInput) => {
                 let aReturn = [];
                 this.isDone = true;
@@ -46,7 +86,7 @@ class RapidTestOrder {
         this.stateCur = this.OrderState.WELCOMING;
         this.isDone = false;
         this.sFrom = sFrom;
-        this.order={};
+        this.order = {};
     }
     handleInput(sInput) {
         return this.stateCur(sInput);
