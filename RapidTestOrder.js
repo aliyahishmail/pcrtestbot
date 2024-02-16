@@ -7,9 +7,10 @@ class RapidTestOrder {
                 aReturn.push("Welcome to Titos! What would you like to order? We have Pizza and Wings.");
                 return aReturn;
             },
-            ITEM_SELECTION: () => {
+            ITEM_SELECTION: (sInput) => {
                 let aReturn = [];
                 this.stateCur = this.OrderState.SIZE_SELECTION;
+                this.order.item = sInput;
                 aReturn.push("Great choice! What size would you like? We have Small, Medium, and Large.");
                 return aReturn;
             },
@@ -18,9 +19,9 @@ class RapidTestOrder {
                 let aReturn = [];
                 this.stateCur = this.OrderState.OPTIONS_SELECTION;
                 this.order.size = sInput;
-                if (this.order.item === "Pizza") {
+                if (this.order.item.toLowerCase() === "pizza") {
                     aReturn.push("Would you like Meat Lovers or Vegetarian pizza?");
-                } else if (this.order.item === "Wings") {
+                } else if (this.order.item.toLowerCase() === "wings") {
                     aReturn.push("Would you like Buffalo or BBQ sauce on your wings?");
                 }
                 return aReturn;
