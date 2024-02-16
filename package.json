@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npx jasmine",
-    "start": "node index.js",
-    "dev": "node index.js"
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -35,5 +35,8 @@
     "sourceMaps": true,
     "retainLines": true
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
 }
